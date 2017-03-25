@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto')
+
+$roboto: 'Roboto', sans-serif
+$backgroundColor: rgb(129, 11, 26)
+$textColor: complement($backgroundColor)
+$linkColor: rgb(255, 255, 0)
+$markdownText: rgb(255,255,255)
+
+html
+  background: $backgroundColor
+  font-family: $roboto
+  font-size: 1em
+  h1
+    color: white
+
+#root
+  margin: 0 auto
+  width: 960px
+
+.header
+  text-align: center
+
+.main
+  display: flex
+  flex-direction: row
+  font-size: 1.25em
+  .tA
+    height: 500px
+    min-width: 50%
+    max-width: 480px
+    max-height: 700px
+    font-size: .75em
+    padding: 20px
+    color: $textColor
+    font-family: $roboto
+    border-radius: 10px
+    box-shadow: 0 0 0 3px white
+    border: 5px solid transparent
+    &:focus
+      outline: none
+  .markdown
+    min-width: 50%
+    padding: 0 0 0 50px
+    color: $markdownText
+    a
+      color: $linkColor
+      text-decoration: none
+      &:hover
+        text-decoration: underline

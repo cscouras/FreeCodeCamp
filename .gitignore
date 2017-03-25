@@ -1,0 +1,3 @@
+node_modules/
+*.yml
+.DS_Store
