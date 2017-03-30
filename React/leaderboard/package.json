@@ -4,6 +4,8 @@
   "description": "FreeCodeCamp Leaderboard",
   "main": "index.js",
   "scripts": {
+    "eslint-init": "eslint --init",
+    "eslint-fix": "eslint --fix",
     "dev": "webpack-dev-server",
     "prod": "npm run clean && NODE_ENV=production webpack -p",
     "clean": "rimraf ./dist/*"
@@ -11,6 +13,8 @@
   "author": "Chris Scouras",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.15.3",
+    "fixed-data-table": "^0.6.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
@@ -21,7 +25,10 @@
     "babel-preset-react": "^6.23.0",
     "css-loader": "^0.27.3",
     "eslint": "^3.18.0",
+    "eslint-config-standard": "^7.1.0",
+    "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^6.10.2",
+    "eslint-plugin-standard": "^2.1.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "html-webpack-plugin": "^2.28.0",
     "node-sass": "^4.5.0",
