@@ -1,29 +1,26 @@
-import React from 'react';
-import {getRecent, getAllTime} from './xhr';
+import React from 'react'
+import {getRecent, getAllTime} from './xhr'
+import {User} from './User'
 
-let User = function(props){
-  return (
-    <tr>
-      <td>{props.rank}</td>
-      <td><img src={props.img} alt={props.name + ' avatar'}/>  </td>
-      <td><a href={'http://freecodecamp.com/' + props.name}>{props.name}</a></td>
-      <td>{props.recent}</td>
-      <td>{props.alltime}</td>
-    </tr>
-  )
-}
-
-let TotalTable = React.createClass({
+let Table = React.createClass({
   getInitialState: function() {
-    return {users: []};
+    return {users: []}
+  },
+
+  getData: function (jsonResults){
+    this.setState({users: jsonResults.data})
   },
 
   componentDidMount: function() {
+    getRecent().then(this.getData)
+  },
 
-    getRecent().then(results => {
-      console.log(results);
-      this.setState({users: results.data});
-    });
+  handleRecent: function(){
+    getRecent().then(this.getData)
+  },
+
+  handleAlltime: function(){
+    getAllTime().then(this.getData)
   },
 
   render: function() {
@@ -34,8 +31,8 @@ let TotalTable = React.createClass({
             <tr>
               <th>Rank</th>
               <th colSpan='2'>Camper</th>
-              <th>Past 30 Days</th>
-              <th>All-Time</th>
+              <th onClick={this.handleRecent}>Past 30 Days</th>
+              <th onClick={this.handleAlltime}>All-Time</th>
             </tr>
           </thead>
           <tbody>
@@ -43,14 +40,11 @@ let TotalTable = React.createClass({
                 return <User name={user.username} img={user.img} recent={user.recent} alltime={user.alltime} rank={i+1} key={user.img} />
               })}
           </tbody>
-
         </table>
-
-
       </div>
     )
   }
 
 });
 
-export default TotalTable;
+export default Table

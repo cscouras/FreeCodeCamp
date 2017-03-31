@@ -15,7 +15,7 @@ const cssConfig = isProd ? cssProd : cssDev;
 
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/App.js',
 
   output: {
     path: path.resolve(__dirname, 'dist'),

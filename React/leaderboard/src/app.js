@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TotalTable from './table';
+import Table from './Table';
 
 import './css/app.sass';
 
@@ -9,7 +9,7 @@ let App = React.createClass({
     return (
       <div>
         <h1>Free Code Camp Leaderboard</h1>
-        <TotalTable />
+        <Table />
       </div>
     )
   }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let getRecent = function() {
-  return axios.get('https://fcctop100.herokuapp.com/api/fccusers/top/recent');
+  return axios.get('https://fcctop100.herokuapp.com/api/fccusers/top/recent')
 }
 
 
