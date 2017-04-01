@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Table from './Table';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Table} from './Table'
 
 import './css/app.sass';
 
-let App = React.createClass({
-  render: function(){
+class App extends React.Component {
+  render (){
     return (
       <div>
         <h1>Free Code Camp Leaderboard</h1>
@@ -13,7 +13,7 @@ let App = React.createClass({
       </div>
     )
   }
-})
+}
 
 ReactDOM.render(
   <App />,

@@ -2,28 +2,31 @@ import React from 'react'
 import {getRecent, getAllTime} from './xhr'
 import {User} from './User'
 
-let Table = React.createClass({
-  getInitialState: function() {
-    return {users: []}
-  },
+class Table extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {users:[]}
+  }
 
-  getData: function (jsonResults){
+  getData = (jsonResults) => {
     this.setState({users: jsonResults.data})
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
+    console.log('Component Did Mount');
     getRecent().then(this.getData)
-  },
+  }
 
-  handleRecent: function(){
+  handleRecent = () => {
     getRecent().then(this.getData)
-  },
+  }
 
-  handleAlltime: function(){
+  handleAlltime = () =>{
     getAllTime().then(this.getData)
-  },
+  }
 
-  render: function() {
+  render() {
+    console.log('Table Rendered');
     return (
       <div>
         <table className='table'>
@@ -44,7 +47,6 @@ let Table = React.createClass({
       </div>
     )
   }
+}
 
-});
-
-export default Table
+export {Table}
