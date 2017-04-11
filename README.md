@@ -7,3 +7,10 @@
   * JSX
   * React
   * Marked
+
+* FreeCodeCamp Leaderboard
+  * HTML
+  * Sass
+  * JSX
+  * React
+  * Axios
