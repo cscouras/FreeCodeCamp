@@ -1,18 +1,45 @@
+@import 'variables'
+@import 'mixins'
+
+
 .table
-  margin: 0 auto
-  width: 500px
-  border: 1px solid black
+  border: 2.5px solid $border-color
   border-radius: 5px
+  font-family: $table-font
+  margin: 0 auto
   text-align: center
+  width: 600px
+
+  th
+    background: $bg-color
+    color: $table-header
+    padding: 15px
+
+  tr
+    &:nth-child(even)
+      background-color: $bg-color
+
+      img
+        +image($camper-color)
+
+      a
+        +link($camper-color)
+
+    &:nth-child(odd)
+      background-color: $camper-color
+
+      img
+        +image($camper-color-inv)
+
+      a
+        +link($camper-color-inv)
+
   td
-    color: purple
-    a
-      text-decoration: none
-      &:hover
-        color: red
-    img
-      height: 50px
-      width: 50px
-      margin-left: 10px
-      border-radius: 5px
-      border: 2px solid green
+    color: $score-color
+
+
+.recent-header
+  +hover
+
+.alltime-header
+  +hover

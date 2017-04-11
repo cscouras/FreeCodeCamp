@@ -1,0 +1,25 @@
+=hover
+  &:hover
+    color: $score-color
+    cursor: pointer
+
+=link($color)
+  color: $color
+  text-decoration: none
+
+  &:hover
+    color: $score-color
+
+  &:visited
+    color: $color
+
+  &:visited
+    &:hover
+      color: $score-color
+
+=image($color)
+  border: solid 2px $color
+  border-radius: 5px
+  height: 50px
+  margin: 5px 0 0 10px
+  width: 50px

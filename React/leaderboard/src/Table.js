@@ -29,13 +29,13 @@ class Table extends React.Component {
     console.log('Table Rendered');
     return (
       <div>
-        <table className='table'>
+        <table className='table' cellSpacing='0' cellPadding='0'>
           <thead>
             <tr>
               <th>Rank</th>
               <th colSpan='2'>Camper</th>
-              <th onClick={this.handleRecent}>Past 30 Days</th>
-              <th onClick={this.handleAlltime}>All-Time</th>
+              <th className='recent-header' onClick={this.handleRecent}>Past 30 Days</th>
+              <th className='alltime-header'onClick={this.handleAlltime}>All-Time</th>
             </tr>
           </thead>
           <tbody>
