@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import Header from './Header';
+import RecipeName from './RecipeName';
 import './App.css';
 
-class App extends Component {
+const recipes = {
+  title: "Sausage and Peppers",
+  ingredients: ['sausage', 'peppers', 'onions', 'garlic']
+}
+
+class App extends React.Component {
+
   render() {
+    console.log(recipes);
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p className="App-content">
-          Here is some additional content.
-        </p>
+      <div className="app">
+        <Header />
+        <RecipeName recipe={ recipes }/>
       </div>
-    );
+    )
   }
 }
 
