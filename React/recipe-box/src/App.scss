@@ -15,22 +15,43 @@
 
 .app-header {
   background: $header-bg-color;
-  color: $header-color;
+  color: $white;
   height: 150px;
   padding: 20px;
 }
 
-.recipe-name {
+.recipe-container {
   background: $container-color;
   border-radius: 5px;
-  margin: 0 auto;
+  margin: 10px auto;
+  padding: 5px;
   width: 80%;
+}
 
-  li {
-    color: $h2-color;
+.recipe-title {
+  background: $white;
+  border: 1px solid $black;
+  border-radius: 5px;
+  color: $recipe-text;
+  margin: 10px auto;
+  width: 60%;
+
+  h1 {
+    cursor: pointer;
+    display: inline-block;
   }
 }
 
+
+.delete {
+  background: $delete-button-bg;
+  color: $white;
+}
+
+.edit {
+  background: $edit-button-bg;
+  color: $white;
+}
 
 
 @keyframes App-logo-spin {

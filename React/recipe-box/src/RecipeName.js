@@ -1,37 +1,50 @@
 import React from 'react'
 
-const RecipeContents = (props) => {
-  let ingredients = props.list;
+const Ingredients = (props) => {
+  let ingredients = props.ingredients;
   let listIngredients = ingredients.map((item) =>
-    <li key={item}>{item}</li>
+    <p key={item}>{item}</p>
   )
-  return(
-    <ul>
+  return (
+    <div>
       {listIngredients}
-    </ul>
-
+      <Button name="Delete" buttonClass="delete"/>
+      <Button name="Edit" buttonClass="edit"/>
+      </div>
   )
 }
 
 const Button = (props) => {
   return (
-    <button>
+    <button className={props.buttonClass} >
       {props.name}
     </button>
   )
 }
 
-class RecipeName extends React.Component{
-  render(){
-    return (
-      <div className="recipe-name">
-        <h1>{this.props.recipe.title}</h1>
-        <RecipeContents className="recipe-contents" list={this.props.recipe.ingredients}/>
-        <Button name="Delete" />
-        <Button name="Edit" />
-      </div>
-    )
+const RecipeTitle = (props) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    alert(e.target.innerText);
   }
+  let recList = props.recipes.map((item) =>
+      <div className="recipe-title" key={item.id}>
+        <h1 onClick={handleClick}>{item.title}</h1>
+        <Ingredients ingredients={item.ingredients}/>
+      </div>
+  )
+  return (
+    <div>{recList}</div>
+  )
 }
 
-export default RecipeName;
+const RecipeContainer = (props) => {
+  return (
+    <div className="recipe-container">
+      <RecipeTitle recipes={props.recipes}/>
+    </div>
+  )
+}
+
+
+export { RecipeContainer, Button };

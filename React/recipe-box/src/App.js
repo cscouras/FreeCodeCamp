@@ -1,21 +1,25 @@
 import React from 'react';
 import Header from './Header';
-import RecipeName from './RecipeName';
+import { RecipeContainer, Button } from './RecipeName';
 import './App.css';
 
-const recipes = {
-  title: "Sausage and Peppers",
-  ingredients: ['sausage', 'peppers', 'onions', 'garlic']
-}
+const defaultData = [
+  {id: 0,
+  title: "Italian Sausage",
+  ingredients: ["sausage", "peppers", "onions", "garlic"]},
+  {id: 1,
+  title: "Pizza",
+  ingredients: ["dough", "cheese", "sauce"]}
+]
 
 class App extends React.Component {
 
   render() {
-    console.log(recipes);
     return (
       <div className="app">
         <Header />
-        <RecipeName recipe={ recipes }/>
+        <RecipeContainer recipes={ defaultData }/>
+        <Button name="Add Recipe"></Button>
       </div>
     )
   }
