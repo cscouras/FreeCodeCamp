@@ -12,17 +12,15 @@ const defaultData = [
   ingredients: ["dough", "cheese", "sauce"]}
 ]
 
-class App extends React.Component {
-
-  render() {
-    return (
-      <div className="app">
-        <Header />
-        <RecipeContainer recipes={ defaultData }/>
-        <Button name="Add Recipe"></Button>
-      </div>
-    )
-  }
+const App = () => {
+  return (
+    <div className="app">
+      <Header />
+      <RecipeContainer recipes={ defaultData }/>
+      <Button name="Add Recipe"></Button>
+    </div>
+  )
 }
+
 
 export default App;
