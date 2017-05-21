@@ -5,7 +5,7 @@ function Header (){
   return (
     <div className="app-header">
       <Logo />
-      <h2>Welcome to React Recipe Box</h2>
+      <h2>React Recipe Box</h2>
     </div>
   )
 }

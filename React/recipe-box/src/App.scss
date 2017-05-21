@@ -26,6 +26,11 @@
   margin: 10px auto;
   padding: 5px;
   width: 80%;
+
+  h1 {
+    cursor: pointer;
+    display: inline-block;
+  }
 }
 
 .recipe-title {
@@ -35,17 +40,13 @@
   color: $recipe-text;
   margin: 10px auto;
   width: 60%;
-
-  h1 {
-    cursor: pointer;
-    display: inline-block;
-  }
 }
 
 
 .delete {
   background: $delete-button-bg;
   color: $white;
+  margin: 0 5px 10px 0;
 }
 
 .edit {
