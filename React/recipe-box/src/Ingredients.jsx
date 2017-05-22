@@ -1,10 +1,12 @@
 import React from 'react'
 import Button from './Button'
 
-const Ingredients = ({ingredients, hide}) => {
-  let cssClasses = `${hide} recipe-title`
+const Ingredients = ({ingredients, show}) => {
+  if(!show){
+    return null;
+  }
     return (
-      <div className={cssClasses}>
+      <div className='recipe-title'>
         <h3>Ingredients</h3>
         {ingredients.map((ingredient)=>
           <p key={ingredient}>{ingredient}</p>

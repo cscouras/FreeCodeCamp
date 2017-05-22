@@ -4,19 +4,21 @@ import { Ingredients } from './Ingredients'
 class RecipeTitle extends React.Component{
   constructor(props){
     super(props)
-    this.state = {hide: true}
+    this.state = {isOpen: false}
   }
 
   handleClick = (e) => {
     e.preventDefault();
-    this.setState({hide: this.state.hide ? false : true})
+    this.setState({
+      isOpen: !this.state.isOpen
+    })
   }
 
   render() {
     return (
       <div>
         <h1 onClick={this.handleClick}>{ this.props.recipe.title }</h1>
-        <Ingredients ingredients={this.props.recipe.ingredients} hide={this.state.hide ? "hide" : null }/>
+        <Ingredients ingredients={this.props.recipe.ingredients} show={this.state.isOpen}/>
       </div>
     )
   }

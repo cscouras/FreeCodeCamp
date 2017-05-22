@@ -2,27 +2,22 @@ import React from 'react';
 import Header from './Header';
 import { RecipeContainer } from './RecipeContainer';
 import Button from './Button'
+import {Modal} from './Modal'
 import './App.css';
 
 class App extends React.Component {
   constructor(props){
     super(props)
-    this.state = {data : null}
+    this.state = {
+      data : JSON.parse(this.props.data),
+      isOpen: false}
   }
 
-  componentWillMount() {
-    const DATA = this.props.data
-    let store;
-    if(localStorage.length === 0){
-      localStorage.setItem('recipeList', JSON.stringify(DATA))
-      store = JSON.parse(localStorage.getItem('recipeList'))
-      this.setState({data: store});
-    } else {
-      console.log('Already local storage');
-      store = JSON.parse(localStorage.getItem('recipeList'))
-      this.setState({data: store })
-    }
-    console.log(localStorage.length);
+  _toggleModal = (e) => {
+    e.preventDefault();
+    this.setState({
+      isOpen: !this.state.isOpen
+    })
   }
 
   render() {
@@ -31,8 +26,24 @@ class App extends React.Component {
       <div className="app">
         <Header />
         <RecipeContainer recipes={this.state.data}/>
-        <Button name="Add Recipe"></Button>
-      </div>
+        <Button name="Add Recipe" onClick={this._toggleModal}></Button>
+
+      <Modal show={this.state.isOpen}
+        onClose={this._toggleModal}>
+        <h1>Add Recipe</h1>
+        <label>Recipe</label>
+        <br />
+        <input type='text' placeholder="Recipe Name"></input>
+        <br />
+        <label>Ingredients</label>
+        <br />
+        <textarea placeholder="Enter Ingredients (Separated by commas)">
+
+        </textarea>
+        <br />
+        <Button name="Add Recipe" />
+      </Modal>
+    </div>
     )
   }
 }
