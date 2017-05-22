@@ -10,18 +10,34 @@ class App extends React.Component {
     super(props)
     this.state = {
       data : JSON.parse(this.props.data),
-      isOpen: false}
+      isOpen: false,
+      newRecipe: '',
+      newIngredients: ''}
   }
 
   _toggleModal = (e) => {
     e.preventDefault();
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
+      newRecipe: '',
+      newIngredients: ''
+    })
+  }
+
+  handleInputChange = (e) => {
+    const target = e.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
     })
   }
 
   render() {
     console.log(this.state.data, 'DATA LOG');
+    console.log(this.state.newRecipe);
+    console.log(this.state.newIngredients);
     return (
       <div className="app">
         <Header />
@@ -33,11 +49,18 @@ class App extends React.Component {
         <h1>Add Recipe</h1>
         <label>Recipe</label>
         <br />
-        <input type='text' placeholder="Recipe Name"></input>
+        <input type='text'
+          placeholder="Recipe Name"
+          name="newRecipe"
+          value={this.state.newRecipe}
+          onChange={this.handleInputChange} />
         <br />
         <label>Ingredients</label>
         <br />
-        <textarea placeholder="Enter Ingredients (Separated by commas)">
+        <textarea placeholder="Enter Ingredients (Separated by commas)"
+          name="newIngredients"
+          value={this.state.newIngredients}
+          onChange={this.handleInputChange}>
 
         </textarea>
         <br />
