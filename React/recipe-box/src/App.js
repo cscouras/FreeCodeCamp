@@ -9,7 +9,7 @@ class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      data : JSON.parse(this.props.data),
+      data : JSON.parse(localStorage.getItem('recipeList')),
       isOpen: false,
       newRecipe: '',
       newIngredients: ''}
@@ -32,6 +32,26 @@ class App extends React.Component {
     this.setState({
       [name]: value
     })
+  }
+
+  _addRecipe = () => {
+      const prevList = JSON.parse(localStorage.getItem('recipeList'));
+      console.log('previous', prevList);
+      let ingStr = this.state.newIngredients
+      let reg = /\s*,\s/
+      let ingToArr = ingStr.split(reg)
+      const newRec = {
+        id: prevList.length,
+        title: this.state.newRecipe,
+        ingredients: ingToArr
+      }
+      prevList.push(newRec)
+
+      localStorage.setItem('recipeList', JSON.stringify(prevList))
+      this.setState({
+        data: prevList
+      })
+
   }
 
   render() {
@@ -64,7 +84,7 @@ class App extends React.Component {
 
         </textarea>
         <br />
-        <Button name="Add Recipe" />
+        <Button name="Add Recipe" onClick={this._addRecipe} />
       </Modal>
     </div>
     )

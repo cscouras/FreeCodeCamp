@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 
-let DATA = localStorage.getItem('recipeList') || [
+let DATA = [
   {id: 0,
   title: "Italian Sausage",
   ingredients: ["sausage", "peppers", "onions", "garlic"]},
@@ -12,8 +12,11 @@ let DATA = localStorage.getItem('recipeList') || [
   ingredients: ["dough", "cheese", "sauce"]}
 ]
 
+if(!localStorage.getItem('recipeList')){
+  localStorage.setItem('recipeList', JSON.stringify(DATA))
+}
 
 ReactDOM.render(
-  <App data={DATA}/>,
+  <App />,
   document.querySelector('#root')
 );
