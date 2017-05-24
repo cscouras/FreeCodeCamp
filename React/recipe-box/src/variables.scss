@@ -1,4 +1,4 @@
-$h2-color: rgb(255, 147, 128);
+$h2-color: rgba(255, 147, 128);
 $header-bg-color: #222;
 
 $container-color: rgb(158, 158, 158);
@@ -8,3 +8,7 @@ $black: #000;
 $white: #fff;
 $delete-button-bg: rgb(224, 26, 26);
 $edit-button-bg: rgb(0, 135, 66);
+
+// Modal
+$backdrop-bg: 'rgba(0, 0, 0, 0.7)';
+$modal-bg: rgb(255, 255, 255);

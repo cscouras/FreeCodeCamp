@@ -7,8 +7,7 @@ class RecipeTitle extends React.Component{
     this.state = {isOpen: false}
   }
 
-  handleClick = (e) => {
-    e.preventDefault();
+  handleClick = () => {
     this.setState({
       isOpen: !this.state.isOpen
     })
@@ -18,7 +17,10 @@ class RecipeTitle extends React.Component{
     return (
       <div>
         <h1 onClick={this.handleClick}>{ this.props.recipe.title }</h1>
-        <Ingredients ingredients={this.props.recipe.ingredients} show={this.state.isOpen}/>
+        {this.state.isOpen &&
+        <Ingredients ingredients={this.props.recipe.ingredients}
+          recipe={this.props.recipe} data={this.props.data}/>
+        }
       </div>
     )
   }
