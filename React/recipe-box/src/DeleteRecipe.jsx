@@ -7,15 +7,17 @@ class DeleteRecipe extends React.Component {
   _deleteRecipe=(arr)=> {
     this.props.dataDelete(arr);
   }
+
   _handleClick = () => {
-      console.log(this.props.data);
-      const prevList = this.props.data
-      prevList.splice(this.props.index,1)
-      localStorage.setItem('recipeList', JSON.stringify(prevList))
-      this._deleteRecipe(prevList)
+      const recipeList = this.props.data
+      console.log(recipeList, this.props.index, '<-INDEX');
+      recipeList.splice(this.props.index,1)
+      console.log(recipeList, 'new List');
+      this._deleteRecipe(recipeList)
   }
 
   render(){
+    console.log(this.props.data);
     return (
         <Button name="Delete"
           buttonClass="delete"

@@ -34,22 +34,19 @@ class EditRecipe extends React.Component {
   }
 
   _editRecipe = () => {
-    const prevList = JSON.parse(localStorage.getItem('recipeList'))
+    const recipeList = this.props.data
     let ingStr = this.state.ingredients
     let reg = /\s*,\s/
     let ingToArr = ingStr.split(reg)
     const newRec = {
-      id: this.props.id,
       title: this.state.title,
       ingredients: ingToArr
     }
-    prevList.splice(this.props.id, 1, newRec)
-    localStorage.setItem('recipeList', JSON.stringify(prevList))
-    this.handleDataEdit(prevList)
+    recipeList.splice(this.props.index, 1, newRec)
+    this.handleDataEdit(recipeList)
   }
 
   render(){
-    console.log(this.state.ingredients, 'OK');
     return (
       <div>
         <Button name="Edit Recipe" buttonClass='edit' onClick={this.toggleModal} />

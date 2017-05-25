@@ -13,9 +13,12 @@ class App extends React.Component {
 }
 
   _handleDataUpdate =(arr)=>{
+    localStorage.setItem('recipeList', JSON.stringify(arr))
+    console.log(arr, 'ARRAY PASSED TO SET STATE IN APP');
     this.setState({
       data: arr
     })
+
   }
 
   render() {
@@ -26,10 +29,14 @@ class App extends React.Component {
         <Header />
         <div className="recipe-container">
           {recipes.map((recipe)=> {
+            const name = recipe.title
+            const index = recipes.findIndex((item, i)=>{
+              return item.title === name
+            })
               return (
-              <div key={recipe.id}>
+              <div key={recipe.title}>
                 <RecipeTitle
-                  id={recipe.id}
+                  index={index}
                   title={recipe.title}
                   ingredients={recipe.ingredients}
                   data={this.state.data}
@@ -39,7 +46,9 @@ class App extends React.Component {
           }
         )}
       </div>
-      <AddRecipe changeData={this._handleDataUpdate}/>
+      <AddRecipe
+        data={recipes}
+        changeData={this._handleDataUpdate}/>
     </div>
     )
   }

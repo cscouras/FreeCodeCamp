@@ -24,7 +24,6 @@ class RecipeTitle extends React.Component {
   }
 
   render(){
-    const id = this.props.id
     const title = this.props.title
     const ingredients = this.props.ingredients
     return(
@@ -37,11 +36,11 @@ class RecipeTitle extends React.Component {
               <p key={ingredient}>{ingredient}</p>
             )}
             <DeleteRecipe
-              index={this.props.id}
+              index={this.props.index}
               data={this.state.data}
               dataDelete={this._onDataChange}/>
             <EditRecipe
-              id={id}
+              index={this.props.index}
               title={title}
               ingredients={ingredients}
               data={this.state.data}

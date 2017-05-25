@@ -31,24 +31,21 @@ class AddRecipe extends React.Component {
   }
 
   handleDataChange =(arr)=>{
+    this.toggleModal()
     this.props.changeData(arr);
   }
 
   _addRecipe = () => {
-    const prevList = JSON.parse(localStorage.getItem('recipeList'));
-    console.log('previous', prevList);
+    const recipeList = this.props.data
     let ingStr = this.state.newIngredients
     let reg = /\s*,\s/
     let ingToArr = ingStr.split(reg)
     const newRec = {
-      id: prevList.length,
       title: this.state.newRecipe,
       ingredients: ingToArr
     }
-    prevList.push(newRec)
-    localStorage.setItem('recipeList', JSON.stringify(prevList))
-    this.handleDataChange(prevList)
-    this.toggleModal()
+    recipeList.push(newRec)
+    this.handleDataChange(recipeList)
   }
 
   render(){
