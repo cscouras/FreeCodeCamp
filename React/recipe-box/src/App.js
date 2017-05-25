@@ -1,82 +1,48 @@
 import React from 'react';
 import Header from './Header';
-import { RecipeContainer } from './RecipeContainer';
-import Button from './Button'
-import Modal from './Modal'
+import RecipeTitle from './RecipeTitle'
+import AddRecipe from './AddRecipe'
 import './App.css';
 
 class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      data : JSON.parse(localStorage.getItem('recipeList')),
-      isOpen: false,
-      newRecipe: '',
-      newIngredients: ''}
+      data : JSON.parse(localStorage.getItem('recipeList'))
   }
+}
 
-  _toggleModal = () => {
+  _handleDataUpdate =(arr)=>{
+    alert('changed app state')
     this.setState({
-      isOpen: !this.state.isOpen,
-      newRecipe: '',
-      newIngredients: ''
+      data: arr
     })
-  }
-
-  handleInputChange = (e) => {
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    })
-  }
-
-  _addRecipe = () => {
-    const prevList = JSON.parse(localStorage.getItem('recipeList'));
-    console.log('previous', prevList);
-    let ingStr = this.state.newIngredients
-    let reg = /\s*,\s/
-    let ingToArr = ingStr.split(reg)
-    const newRec = {
-      id: prevList.length,
-      title: this.state.newRecipe,
-      ingredients: ingToArr
-    }
-    prevList.push(newRec)
-    localStorage.setItem('recipeList', JSON.stringify(prevList))
-    this.setState({
-      data: prevList
-    })
-    this._toggleModal()
   }
 
   render() {
+    let recipes = this.state.data;
     return (
       <div className="app">
         <Header />
-        <RecipeContainer recipes={this.state.data}/>
-        <Button name="Add Recipe" onClick={this._toggleModal}></Button>
-
-      {this.state.isOpen &&
-      <Modal
-        onClose={this._toggleModal}
-        name="Add Recipe"
-        recipeValue={this.state.newRecipe}
-        inputRecipeName="newRecipe"
-        inputChange={this.handleInputChange}
-        inputIngredientsName="newIngredients"
-        ingredientsValue={this.state.newIngredients}
-        buttonName="Add Recipe"
-        buttonClass="disabled"
-        buttonAction={this._addRecipe}/>
-      }
+        <div className="recipe-container">
+          {recipes.map((recipe)=> {
+              return (
+              <div key={recipe.id}>
+                <RecipeTitle
+                  id={recipe.id}
+                  title={recipe.title}
+                  ingredients={recipe.ingredients}
+                  data={this.state.data}
+                  changeData={this._handleDataUpdate}/>
+              </div>
+            )
+          }
+        )}
+      </div>
+      <AddRecipe changeData={this._handleDataUpdate}/>
     </div>
     )
   }
 }
-
-
 
 export default App;
