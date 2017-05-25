@@ -1,6 +1,6 @@
 import React from 'react'
-import Button from './Button'
 import EditRecipe from './EditRecipe'
+import DeleteRecipe from './DeleteRecipe'
 
 
 class RecipeTitle extends React.Component {
@@ -18,8 +18,9 @@ class RecipeTitle extends React.Component {
     })
   }
 
-  _onDataChange = () => {
-    this.props.changeData()
+  _onDataChange = (arr) => {
+    this._showIngredients()
+    this.props.changeData(arr)
   }
 
   render(){
@@ -35,7 +36,10 @@ class RecipeTitle extends React.Component {
             {ingredients.map((ingredient)=>
               <p key={ingredient}>{ingredient}</p>
             )}
-            <Button name="Delete" buttonClass="delete" />
+            <DeleteRecipe
+              index={this.props.id}
+              data={this.state.data}
+              dataDelete={this._onDataChange}/>
             <EditRecipe
               id={id}
               title={title}

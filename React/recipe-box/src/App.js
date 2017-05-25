@@ -13,7 +13,6 @@ class App extends React.Component {
 }
 
   _handleDataUpdate =(arr)=>{
-    alert('changed app state')
     this.setState({
       data: arr
     })
@@ -21,6 +20,7 @@ class App extends React.Component {
 
   render() {
     let recipes = this.state.data;
+    console.log(recipes, 'RECIPES');
     return (
       <div className="app">
         <Header />
