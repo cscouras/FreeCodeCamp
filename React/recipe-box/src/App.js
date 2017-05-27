@@ -1,55 +1,159 @@
-import React from 'react';
-import Header from './Header';
-import RecipeTitle from './RecipeTitle'
-import AddRecipe from './AddRecipe'
-import './App.css';
+import React, { Component } from 'react'
+import Header from './Header'
+import Button from './Button'
+import Modal from './Modal'
+import './App.css'
 
-class App extends React.Component {
+class RecipeTitle extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      data : JSON.parse(localStorage.getItem('recipeList'))
+    this.state ={
+      show: false
+    }
+  }
+
+  handleClick = () => {
+    this.setState({
+      show: !this.state.show
+    })
+  }
+
+  sendDataToParent = (arr) => {
+    this.props.handleData(arr)
+  }
+
+  getDataFromIng = (arr) => {
+    this.sendDataToParent(arr)
+    this.setState({
+      show: !this.state.show
+    })
+  }
+
+
+  render(){
+    return (
+      <div className='recipe-container'>
+        <h1 onClick={this.handleClick}>{this.props.name}</h1>
+        {this.state.show &&
+          <Ingredients
+            name={this.props.name}
+            ings={this.props.ings}
+            index={this.props.index}
+            handleData={this.getDataFromIng}/>}
+      </div>
+    )
+  }
+
+}
+
+class Ingredients extends Component {
+  constructor(props){
+    super(props)
+    this.state ={
+      showModal: false
+    }
+  }
+
+  toggleModal = () => {
+    this.setState({
+      showModal: !this.state.showModal
+    })
+  }
+
+  deleteData = () => {
+    let currentData = JSON.parse(localStorage.getItem('recipeList'))
+    console.log(currentData[this.props.index]);
+    currentData.splice(this.props.index,1)
+    console.log(currentData);
+    this.sendData(currentData)
+  }
+
+
+  sendData = (arr) => {
+    this.props.handleData(arr)
+  }
+
+  render(){
+    const ings = this.props.ings
+    return (
+      <div className='recipe-title'>
+        <h3>Ingredients</h3>
+        {ings.map((item)=> {
+          return (
+            <p key={item}>{item}</p>
+          )
+        })}
+        <Button buttonClass='edit'
+          name="Edit Recipe"
+          onClick={this.toggleModal}/>
+        {this.state.showModal &&
+          <Modal
+            name="Edit Recipe"
+            onClose={this.toggleModal}
+            handleData={this.sendData}
+            recipeName={this.props.name}
+            recipeIngredients={ings}/>
+        }
+        <Button buttonClass='delete'
+          name="Delete Recipe"
+          onClick={this.deleteData} />
+      </div>
+    )
   }
 }
 
-  _handleDataUpdate =(arr)=>{
+
+class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      data: JSON.parse(localStorage.getItem('recipeList')),
+      showModal: false
+    }
+  }
+
+  toggleModal =()=>{
+    this.setState({
+      showModal: !this.state.showModal
+    })
+  }
+
+  handleData = (arr) => {
     localStorage.setItem('recipeList', JSON.stringify(arr))
-    console.log(arr, 'ARRAY PASSED TO SET STATE IN APP');
     this.setState({
       data: arr
     })
-
   }
 
-  render() {
-    let recipes = this.state.data;
-    console.log(recipes, 'RECIPES');
+  render (){
+    const recipes = this.state.data
     return (
-      <div className="app">
+      <div className='app'>
         <Header />
-        <div className="recipe-container">
-          {recipes.map((recipe)=> {
-            const name = recipe.title
-            const index = recipes.findIndex((item, i)=>{
-              return item.title === name
-            })
-              return (
-              <div key={recipe.title}>
-                <RecipeTitle
-                  index={index}
-                  title={recipe.title}
-                  ingredients={recipe.ingredients}
-                  data={this.state.data}
-                  changeData={this._handleDataUpdate}/>
-              </div>
-            )
-          }
-        )}
+        {recipes.map((recipe)=>{
+          const name = recipe.title
+          const ings = recipe.ingredients
+          const index = recipes.findIndex((item, i)=>{
+            return item.title === name
+          })
+          return(
+            <RecipeTitle
+              key={index}
+              index={index}
+              name={name}
+              ings={ings}
+              handleData={this.handleData}/>
+        )
+        })}
+        <Button buttonClass="add" name='Add Recipe' onClick={this.toggleModal}/>
+        {this.state.showModal &&
+          <Modal
+            name="Add Recipe"
+            recipeName=''
+            recipeIngredients=''
+            onClose={this.toggleModal}
+            handleData={this.handleData}/>}
       </div>
-      <AddRecipe
-        data={recipes}
-        changeData={this._handleDataUpdate}/>
-    </div>
     )
   }
 }
