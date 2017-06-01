@@ -33,7 +33,7 @@ class RecipeTitle extends Component {
   render(){
     return (
       <div className='recipe-container'>
-        <h1 onClick={this.handleClick}>{this.props.name}</h1>
+        <h2 onClick={this.handleClick}>{this.props.name}</h2>
         {this.state.show &&
           <Ingredients
             name={this.props.name}

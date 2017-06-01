@@ -3,8 +3,9 @@
 .app {
   text-align: center;
 
-  h2 {
+  h1 {
     color: $h2-color;
+    font-family: $roboto-slab;
   }
 }
 
@@ -81,28 +82,27 @@
   width: 200px;
 }
 
-.hide {
-  display: none;
-}
-
 .backdrop {
   background: $backdrop-bg;
   bottom: 0;
   left: 0;
-  padding: 50;
+  padding: 50px;
   position: fixed;
   right: 0;
   top: 0;
 
   .modal {
     background: $modal-bg;
-    border-radius: 5;
+    border-radius: 5px;
     margin: 0 auto;
-    max-width: 500;
-    min-height: 300;
-    padding: 30;
+    max-width: 500px;
+    min-height: 300px;
+    padding: 30px;
   }
 }
+
+
+
 
 
 
