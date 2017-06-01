@@ -28,7 +28,7 @@
   padding: 5px;
   width: 80%;
 
-  h1 {
+  h2 {
     cursor: pointer;
     display: inline-block;
   }
@@ -41,45 +41,67 @@
   color: $recipe-text;
   margin: 10px auto;
   width: 60%;
+
+  h3 {
+    font-family: $roboto-slab;
+  }
 }
 
+%button {
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  height: 25px;
+  margin: 5px;
+  outline: none;
+  width: 100px;
+}
 
 .delete {
+  @extend %button;
   background: $delete-button-bg;
   color: $white;
-  margin: 0 5px 10px 0;
+
+  &:active {
+    background: darken($delete-button-bg, 25%);
+  }
 }
 
 .edit {
+  @extend %button;
   background: $edit-button-bg;
   color: $white;
+
+  &:active {
+    background: lighten($edit-button-bg, 25%);
+  }
 }
 
 .add {
+  @extend %button;
   background: $recipe-text;
   color: $white;
+
+  &:active {
+    background: lighten($recipe-text, 15%);
+  }
 }
 
 .disabled {
+  @extend %button;
   background: $container-color;
-  border: 0;
-  border-radius: 5px;
-  color: $white;
-  font-size: 16px;
-  height: 100px;
-  padding: 10px;
-  text-decoration: line-through;
-  width: 200px;
+  color: darken($container-color, 25%);
 }
 
-.enabled {
-  background: $edit-button-bg;
-  border: 0;
-  border-radius: 5px;
+.close {
+  @extend %button;
+  background: $container-color;
   color: $white;
-  height: 100px;
-  padding: 10px;
-  width: 200px;
+
+  &:active {
+    background: darken($container-color, 25%);
+  }
 }
 
 .backdrop {
@@ -94,6 +116,7 @@
   .modal {
     background: $modal-bg;
     border-radius: 5px;
+    font-family: $roboto-slab;
     margin: 0 auto;
     max-width: 500px;
     min-height: 300px;
@@ -102,8 +125,22 @@
 }
 
 
+.input-text {
+  font-family: $roboto;
+  font-size: 14px;
+  margin: 10px;
+  text-align: center;
+}
 
-
+.textarea {
+  font-family: $roboto;
+  font-size: 14px;
+  margin: 10px;
+  max-height: 150px;
+  max-width: 90%;
+  min-width: 60%;
+  text-align: center;
+}
 
 
 @keyframes App-logo-spin {

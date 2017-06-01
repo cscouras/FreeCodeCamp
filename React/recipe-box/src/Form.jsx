@@ -5,6 +5,7 @@ class Form extends Component {
     const target = e.target
     const name = target.name
     const value = target.value
+    console.log(value);
     this.props.onChange(name, value)
   }
   render(){
@@ -15,6 +16,7 @@ class Form extends Component {
         </label>
         <br />
         <input type='text'
+          className='input-text'
           name="title"
           value={this.props.recipeName}
           placeholder="Add Recipe Name"
@@ -25,6 +27,7 @@ class Form extends Component {
         </label>
         <br />
         <textarea
+          className='textarea'
           name="ingredients"
           value={this.props.recipeIngredients}
           placeholder="Add Ingredients separated by a comma"

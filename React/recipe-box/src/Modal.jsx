@@ -13,7 +13,6 @@ class Modal extends React.Component {
   }
 
   handleChange =(name, value)=>{
-
     this.setState({
       [name]: value
     })
@@ -36,15 +35,12 @@ class Modal extends React.Component {
 
     if(checkIndex >=0){
       currentStorage[checkIndex].ingredients = ingArr
-      console.log(currentStorage[checkIndex]);
-      console.log(currentStorage);
     } else {
       const newRecipe = {
         title: this.state.title,
         ingredients: ingArr
       }
       currentStorage.push(newRecipe)
-      console.log(currentStorage);
     }
     this.props.onClose()
     this.sendData(currentStorage)
@@ -52,6 +48,19 @@ class Modal extends React.Component {
 
 
   render() {
+    let button = null;
+    if (this.state.title.length === 0 ||
+      this.state.ingredients.length === 0){
+        button = <Button
+          name='Submit'
+          buttonClass='disabled'
+          disable={true} />
+      } else {
+        button = <Button
+          buttonClass='add'
+          name="Submit"
+          onClick={this.handleSubmit} />
+      }
     return (
       <div className='backdrop'>
         <div className='modal'>
@@ -62,11 +71,9 @@ class Modal extends React.Component {
             recipeIngredients={this.state.ingredients}
             />
 
-          <Button
-            buttonClass='add'
-            name="Submit"
-            onClick={this.handleSubmit} />
+          {button}
           <Button name="Close"
+            buttonClass='close'
             onClick={this.props.onClose} />
         </div>
       </div>
