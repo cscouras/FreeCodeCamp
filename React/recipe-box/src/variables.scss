@@ -1,19 +1,31 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab');
-
+// Font
 $roboto-slab: 'Roboto Slab', serif;
 $roboto: 'Roboto', sans-serif;
 
-$h2-color: rgb(255, 147, 128);
-$header-bg-color: #222;
+$dark-blue: #222831;
+$dark-gray: #393e46;
+$turquoise: #00adb5;
+$light-gray: #eee;
 
-$container-color: rgb(158, 158, 158);
-$recipe-text: rgb(0, 15, 221);
+// Header
+$header-color: $turquoise;
+$header-bg-color: $dark-blue;
 
-$black: #000;
+$app-bg-color: $dark-gray;
+
+$container-color: $light-gray;
+$recipe-text: $dark-blue;
+
+$black: #333;
 $white: #fff;
-$delete-button-bg: rgb(224, 26, 26);
-$edit-button-bg: rgb(0, 135, 66);
+
+$add-button-bg: $turquoise;
+$delete-button-bg: $dark-blue;
+$edit-button-bg: $turquoise;
+$submit-button-bg: $turquoise;
+$close-button-bg: $dark-gray;
 
 // Modal
-$backdrop-bg: rgba(0, 0, 0, 0.7);
-$modal-bg: rgb(255, 255, 255);
+$backdrop-bg: rgba(0, 0, 0, .7);
+$modal-bg: $container-color;

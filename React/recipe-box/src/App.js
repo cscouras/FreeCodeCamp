@@ -88,7 +88,7 @@ class Ingredients extends Component {
           onClick={this.toggleModal}/>
         {this.state.showModal &&
           <Modal
-            name="Edit"
+            name="Edit Recipe"
             onClose={this.toggleModal}
             handleData={this.sendData}
             recipeName={this.props.name}

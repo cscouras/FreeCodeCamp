@@ -57,7 +57,7 @@ class Modal extends React.Component {
           disable={true} />
       } else {
         button = <Button
-          buttonClass='add'
+          buttonClass='submit'
           name="Submit"
           onClick={this.handleSubmit} />
       }
