@@ -2,15 +2,21 @@
 
 ### React Projects
 * Markdown-Previewer
-  * HTML
+  * JavaScript
   * Sass
   * JSX
   * React
   * Marked
 
 * FreeCodeCamp Leaderboard
-  * HTML
+  * JavaScript
   * Sass
   * JSX
   * React
   * Axios
+
+* Recipe Box
+  * JavaScript
+  * Sass
+  * JSX
+  * React
