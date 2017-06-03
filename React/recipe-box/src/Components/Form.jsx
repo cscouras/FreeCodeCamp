@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Form = (props) => {
   const handleInputChange = (e)=>{
@@ -10,7 +11,7 @@ const Form = (props) => {
 
   const disableEnter = (e) => {
     if(e.key === 'Enter'){
-      e.preventDefault();
+      e.preventDefault()
     }
   }
 
@@ -42,4 +43,10 @@ const Form = (props) => {
   )
 }
 
-export default Form;
+Form.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  recipeName: PropTypes.string,
+  recipeIngredients: PropTypes.array
+}
+
+export default Form

@@ -1,5 +1,5 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from 'react'
+import logo from './logo.svg'
 
 function Header (){
   return (
@@ -16,4 +16,4 @@ function Logo (){
   )
 }
 
-export default Header;
+export default Header
