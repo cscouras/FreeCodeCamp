@@ -29,7 +29,6 @@ class RecipeTitle extends Component {
     })
   }
 
-
   render(){
     return (
       <div className='recipe-container'>

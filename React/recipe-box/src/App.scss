@@ -80,6 +80,7 @@
 .add {
   @extend %button;
   background: $add-button-bg;
+  margin-top: 1%;
 
   &:active {
     background: darken($add-button-bg, 15%);

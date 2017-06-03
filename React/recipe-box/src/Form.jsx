@@ -1,41 +1,45 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Form extends Component {
-  handleInputChange = (e)=>{
+const Form = (props) => {
+  const handleInputChange = (e)=>{
     const target = e.target
     const name = target.name
     const value = target.value
-    console.log(value);
-    this.props.onChange(name, value)
+    props.onChange(name, value)
   }
-  render(){
-    return (
-      <form>
-        <label>
-          Recipe:
-        </label>
-        <br />
-        <input type='text'
-          className='input-text'
-          name="title"
-          value={this.props.recipeName}
-          placeholder="Add Recipe Name"
-          onChange={this.handleInputChange}/>
-        <br />
-        <label>
-          Ingredients:
-        </label>
-        <br />
-        <textarea
-          className='textarea'
-          name="ingredients"
-          value={this.props.recipeIngredients}
-          placeholder="Add Ingredients separated by a comma"
-          onChange={this.handleInputChange}/>
-        <br/>
-      </form>
-    )
+
+  const disableEnter = (e) => {
+    if(e.key === 'Enter'){
+      e.preventDefault();
+    }
   }
+
+  return (
+    <form onKeyPress={disableEnter}>
+      <label>
+        Recipe:
+      </label>
+      <br />
+      <input type='text'
+        className='input-text'
+        name="title"
+        value={props.recipeName}
+        placeholder="Add Recipe Name"
+        onChange={handleInputChange} />
+      <br />
+      <label>
+        Ingredients:
+      </label>
+      <br />
+      <textarea
+        className='textarea'
+        name="ingredients"
+        value={props.recipeIngredients}
+        placeholder="Add Ingredients separated by a comma"
+        onChange={handleInputChange} />
+      <br/>
+    </form>
+  )
 }
 
-export default Form
+export default Form;

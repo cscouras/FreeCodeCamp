@@ -27,8 +27,6 @@ class Modal extends React.Component {
     let checkIndex = currentStorage.findIndex((item, i)=>{
       return item.title === this.state.title
     })
-    console.log(checkIndex);
-    console.log(checkIndex >=0 ? 'already exists' : 'not in object');
     let ingStr = this.state.ingredients
     let reg = /\s*,\s|,/
     let ingArr = (typeof ingStr === 'string') ? ingStr.split(reg) : this.state.ingredients
