@@ -25,12 +25,14 @@ class Ingredients extends Component {
 
   render(){
     const ings = this.props.ings
+    let count = 0;
     return (
       <div className='ingredients-container'>
         <h3>Ingredients</h3>
         {ings.map((item)=> {
+          count++
           return (
-            <p key={item}>{item}</p>
+            <p key={count}>{item}</p>
           )
         })}
         <Button buttonClass='edit'

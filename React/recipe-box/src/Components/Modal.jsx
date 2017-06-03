@@ -75,9 +75,6 @@ class Modal extends React.Component {
 }
 
 Modal.propTypes = {
-  name: PropTypes.string,
-  recipeName: PropTypes.string,
-  recipeIngredients: PropTypes.array,
   handleData: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 }

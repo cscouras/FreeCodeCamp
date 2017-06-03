@@ -44,9 +44,7 @@ const Form = (props) => {
 }
 
 Form.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  recipeName: PropTypes.string,
-  recipeIngredients: PropTypes.array
+  onChange: PropTypes.func.isRequired
 }
 
 export default Form
