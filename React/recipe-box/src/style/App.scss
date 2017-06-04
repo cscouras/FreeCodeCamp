@@ -1,5 +1,5 @@
 @import 'variables.scss';
-
+@import 'mixins.scss';
 
 .app-header {
   background: $header-bg-color;
@@ -154,4 +154,10 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@include phone {
+  .ingredients-container {
+    width: 65%;
+  }
 }
