@@ -1,3 +1,7 @@
+$pink: rgb(250, 0, 255);
+$yellow: rgb(255, 252, 0);
+$cell-bg: #333;
+
 .App {
   text-align: center;
 }
@@ -16,6 +20,24 @@
 
 .App-intro {
   font-size: large;
+}
+
+.active {
+  background: $yellow;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 15px auto 0;
+}
+
+td {
+  background: $cell-bg;
+  border: 1px solid $pink;
+  cursor: pointer;
+  height: 10px;
+  width: 10px;
 }
 
 @keyframes App-logo-spin {
