@@ -16,7 +16,7 @@ class Cell extends Component {
 
   render () {
     return(
-      <td onClick={this.toggle} className={this.state.active ? 'active': 'inactive'}></td>
+      <div onClick={this.toggle} className={`square ${this.state.active ? 'active': 'inactive' } ${this.props.index}`}></div>
       )
   }
 }
