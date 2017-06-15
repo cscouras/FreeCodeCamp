@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Board height={30} width={50} />
+        <Board height={30} width={50} delay={100}/>
       </div>
     )
   }
