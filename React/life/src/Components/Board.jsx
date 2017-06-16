@@ -90,8 +90,8 @@ class Board extends Component {
   updateCell = (row, col) =>{
     let {height, width} = this.props
     let current = this.state.boardContent
-    let livingNeighbor = 0
-    let cell = current[row][col]
+    let livingNeighbors = 0
+    let alive = current[row][col].alive
     let neighborLoc = [[row-1, col-1], [row-1, col], [row-1, col+1],
                        [row, col-1],   [row, col+1],
                        [row+1, col-1], [row+1, col,],[row+1,col+1]]
@@ -115,38 +115,33 @@ class Board extends Component {
 
     neighbors.forEach(neighbor => {
       if(neighbor.alive){
-        livingNeighbor++
+        livingNeighbors++
       }
     })
 
-    if(cell.alive) {
-      if(livingNeighbor === 2 || livingNeighbor === 3){
-        cell.alive = true;
-      } else {
-        cell.alive = false;
+    if(alive) {
+      if(livingNeighbors < 2 || livingNeighbors > 3){
+        alive = false;
       }
     } else {
-      if(livingNeighbor === 3){
-        cell.alive = true;
+      if(livingNeighbors === 3){
+        alive = true;
       }
     }
-    return {rowId: row, colId: col, alive: cell.alive}
+    return {rowId: row, colId: col, alive: alive}
   }
 
   handleCellClick = (coords) => {
     let boardContent = this.state.boardContent
-    let [r, c] = coords
-    let currentCell = boardContent[r][c]
-    if(currentCell.alive){
-      currentCell.alive = false
-    } else {
-      currentCell.alive = true;
-    }
+    let [row, col] = coords
+    let currentCell = boardContent[row][col]
+
+    currentCell.alive ? currentCell.alive = false : currentCell.alive = true
+
     this.setState({
       boardContent: boardContent
     })
   }
-
 
   render(){
     return(
