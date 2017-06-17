@@ -16,8 +16,9 @@ class Board extends Component {
   }
 
   componentDidMount () {
+    console.log('mounted', this.props.interval)
     this.timerID = setInterval(
-      this.updateBoard, this.props.delay
+      this.updateBoardContent, this.props.interval
     )
   }
 
@@ -26,10 +27,11 @@ class Board extends Component {
   }
 
   run = () => {
+    let { interval } = this.props
     if(this.timerID){
       clearInterval(this.timerID)
     }
-      this.timerID = setInterval(this.updateBoard, this.props.delay)
+      this.timerID = setInterval(this.updateBoardContent, interval)
   }
 
   stop = () => {
@@ -71,7 +73,7 @@ class Board extends Component {
     return grid
   }
 
-  updateBoard = () => {
+  updateBoardContent = () => {
     let nextGen = []
     let {height, width} = this.props
     for(let row = 0; row < height; row++){
@@ -87,37 +89,40 @@ class Board extends Component {
     })
   }
 
-  updateCell = (row, col) =>{
+  livingNeighborCount = (rowId, colId) => {
     let {height, width} = this.props
     let current = this.state.boardContent
     let livingNeighbors = 0
-    let alive = current[row][col].alive
-    let neighborLoc = [[row-1, col-1], [row-1, col], [row-1, col+1],
-                       [row, col-1],   [row, col+1],
-                       [row+1, col-1], [row+1, col,],[row+1,col+1]]
 
-    let neighbors = neighborLoc.map(index => {
+    let neighborLocations = [[rowId-1, colId-1], [rowId-1, colId], [rowId-1, colId+1],
+                       [rowId, colId-1],   [rowId, colId+1],
+                       [rowId+1, colId-1], [rowId+1, colId,],[rowId+1,colId+1]]
+
+    neighborLocations.forEach(neighbor => {
       // remove boundaries
-      if(index[0] < 0){
-        index[0] = height-1
-      } else if(index[0] === height){
-        index[0] = 0
+      if(neighbor[0] < 0){
+        neighbor[0] = height-1
+      } else if(neighbor[0] === height){
+        neighbor[0] = 0
       }
 
-      if(index[1] < 0){
-        index[1] = width-1
-      } else if(index[1] === width){
-        index[1] = 0
+      if(neighbor[1] < 0){
+        neighbor[1] = width-1
+      } else if(neighbor[1] === width){
+        neighbor[1] = 0
       }
 
-      return current[index[0]][index[1]]
+       if(current[neighbor[0]][neighbor[1]].alive){
+         livingNeighbors++
+       }
     })
+    return livingNeighbors
+  }
 
-    neighbors.forEach(neighbor => {
-      if(neighbor.alive){
-        livingNeighbors++
-      }
-    })
+  updateCell = (row, col) =>{
+    let livingNeighbors = this.livingNeighborCount(row, col)
+    let current = this.state.boardContent
+    let alive = current[row][col].alive
 
     if(alive) {
       if(livingNeighbors < 2 || livingNeighbors > 3){
@@ -146,12 +151,15 @@ class Board extends Component {
   render(){
     return(
       <div>
-        <Grid boardContent={this.state.boardContent} onCellClick={this.handleCellClick}/>
-        <Button className='' id="Run" handleClick={this.run} />
-        <Button className='' id="Stop" handleClick={this.stop}/>
-        <Button className='' id="Clear" handleClick={this.clearBoard} />
-        <Button className='' id="Random" handleClick={this.restart} />
         <h3>Generations: {this.state.generationCount}</h3>
+        <div className="btn-grp">
+          <Button className='btn' id="Run" handleClick={this.run} />
+          <Button className='btn' id="Stop" handleClick={this.stop}/>
+          <Button className='btn' id="Clear" handleClick={this.clearBoard} />
+          <Button className='btn' id="Random" handleClick={this.restart} />
+        </div>
+        <Grid boardContent={this.state.boardContent}
+          onCellClick={this.handleCellClick}/>
       </div>
     )
   }

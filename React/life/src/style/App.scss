@@ -1,42 +1,35 @@
-$pink: rgb(250, 0, 255);
-$yellow: rgb(255, 252, 0);
-$cell-bg: #333;
+@import 'variables.scss';
 
-.App {
+.app {
   text-align: center;
+
+  h3 {
+    color: $orange;
+    padding: 5px;
+  }
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
+.app-header {
+  color: $orange;
+  font-family: $ssp;
+  height: 50px;
+  padding: 10px;
 }
 
 .board {
-  background: $yellow;
+  background: $dark-red;
   display: table;
   margin: 10px auto;
+  min-width: 500px;
   padding: 10px;
-  width: 500px;
 
   .row {
     height: 10px;
   }
 
   .square {
-    background: $cell-bg;
-    color: $pink;
-    border: 1px solid $pink;
+    background: $red;
+    border: 1px solid $dark-red;
     cursor: pointer;
     display: block;
     float: left;
@@ -45,16 +38,31 @@ $cell-bg: #333;
   }
 
   .alive {
-    background: $yellow;
-  }
-  
-  .active {
-    background: $yellow;
+    background: lighten($red, 20%);
   }
 
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.btn-grp {
+  display: inline-flex;
+  width: 500px;
+
+  .btn {
+    background: lighten($purple, 20%);
+    border: 0;
+    border-radius: 5px;
+    color: lighten($orange, 20%);
+    cursor: pointer;
+    font-family: $ssp;
+    font-size: .9em;
+    height: 25px;
+    margin: 1% 2%;
+    outline: none;
+    width: 100px;
+
+    &:active {
+      background: darken($purple, 5%);
+      color: darken($orange, 10%);
+    }
+  }
 }

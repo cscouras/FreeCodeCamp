@@ -7,9 +7,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="app">
         <Header />
-        <Board height={30} width={50} delay={100}/>
+        <Board height={30} width={50} interval={100}/>
       </div>
     )
   }
