@@ -16,7 +16,6 @@ class Board extends Component {
   }
 
   componentDidMount () {
-    console.log('mounted', this.props.interval)
     this.timerID = setInterval(
       this.updateBoardContent, this.props.interval
     )
