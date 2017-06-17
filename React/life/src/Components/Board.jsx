@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Grid from './Grid'
+import Button from './Button'
 
 class Board extends Component {
   constructor(props){
@@ -37,24 +39,24 @@ class Board extends Component {
     clearInterval(this.timerID)
   }
 
-  redrawGrid = type => {
+  reDrawGrid = boardType => {
     clearInterval(this.timerID)
     this.setState({
-      gridContent: this.drawGrid(type),
+      gridContent: this.drawGrid(boardType),
       generationCount: 0
     })
   }
 
-  drawGrid = type => {
+  drawGrid = boardType => {
     let { height, width } = this.props
     let grid = []
     for(let row = 0; row < height; row++){
       let rowContent = []
       let alive
       for(let col = 0; col < width; col++){
-        if(type === 'random'){
+        if(boardType === 'random'){
           alive = (Math.random() * 10) + 1 <= 4  ? true : false
-        } else if(type === 'clear'){
+        } else if(boardType === 'clear'){
           alive = false
       }
         rowContent.push({rowId: row, colId: col, alive: alive})
@@ -70,7 +72,7 @@ class Board extends Component {
     for(let row = 0; row < height; row++){
       let rowContent = []
       for(let col = 0; col < width; col++){
-        rowContent.push(this.updateCell(row,col))
+        rowContent.push(this.cellStatusCheck(row,col))
       }
       nextGen.push(rowContent)
     }
@@ -110,15 +112,13 @@ class Board extends Component {
     return livingNeighbors
   }
 
-  updateCell = (row, col) =>{
+  cellStatusCheck = (row, col) =>{
     let livingNeighbors = this.livingNeighborCount(row, col)
-    let current = this.state.gridContent
-    let alive = current[row][col].alive
+    let currentGrid = this.state.gridContent
+    let alive = currentGrid[row][col].alive
 
-    if(alive) {
-      if(livingNeighbors < 2 || livingNeighbors > 3){
+    if(alive && (livingNeighbors < 2 || livingNeighbors > 3)) {
         alive = false;
-      }
     } else {
       if(livingNeighbors === 3){
         alive = true;
@@ -127,9 +127,8 @@ class Board extends Component {
     return {rowId: row, colId: col, alive: alive}
   }
 
-  cellClick = (coords) => {
+  cellClick = (row, col) => {
     let gridContent = this.state.gridContent
-    let [row, col] = coords
     let currentCell = gridContent[row][col]
 
     currentCell.alive ? currentCell.alive = false : currentCell.alive = true
@@ -146,57 +145,14 @@ class Board extends Component {
         <Grid gridContent={this.state.gridContent}
           handleCellClick={this.cellClick}/>
         <div className="btn-grp">
-          <Button className='btn' id="Run" handleButtonClick={this.run} />
-          <Button className='btn' id="Stop" handleButtonClick={this.stop}/>
-          <Button className='btn' id="Clear" handleButtonClick={this.redrawGrid} />
-          <Button className='btn' id="Random" handleButtonClick={this.redrawGrid} />
+          <Button id="Run" handleButtonClick={this.run} />
+          <Button id="Stop" handleButtonClick={this.stop}/>
+          <Button id="Clear" handleButtonClick={this.reDrawGrid} />
+          <Button id="Random" handleButtonClick={this.reDrawGrid} />
         </div>
       </div>
     )
   }
-}
-
-const Grid = props => {
-  return (
-    <div className='board'>
-    {props.gridContent.map((row, index)=>{
-      return <Row key={index} rowContent={row} handleCellClick={props.handleCellClick}/>
-    })}
-  </div>
-)
-}
-
-const Row = props => {
-  return (
-    <div className="row">
-      {props.rowContent.map(cell => {
-        return <Cell key={cell.rowId+'-'+cell.colId} {...cell}
-          handleCellClick={props.handleCellClick}/>
-      })}
-    </div>
-  )
-}
-
-const Cell = props => {
-  const _onClick = () => {
-    props.handleCellClick([props.rowId, props.colId])
-  }
-  return <div className={`square ${!props.alive ? '': 'alive'}`} onClick={_onClick}></div>
-}
-
-const Button = props => {
-  const _onClick = () => {
-    if(props.id.toLowerCase() === 'clear'){
-      props.handleButtonClick('clear')
-    } else if(props.id.toLowerCase() === 'random'){
-      props.handleButtonClick('random')
-    } else {
-      props.handleButtonClick()
-    }
-  }
-  return <button className={props.className} onClick={_onClick}>
-    {props.id}
-  </button>
 }
 
 export default Board
