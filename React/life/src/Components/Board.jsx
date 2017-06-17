@@ -4,20 +4,20 @@ class Board extends Component {
   constructor(props){
     super(props)
     this.state = {
-      boardContent: [],
+      gridContent: [],
       generationCount: 0
     }
   }
 
   componentWillMount () {
     this.setState({
-      boardContent: this.drawBoard('random')
+      gridContent: this.drawGrid('random')
     })
   }
 
   componentDidMount () {
     this.timerID = setInterval(
-      this.updateBoardContent, this.props.interval
+      this.updateGridContent, this.props.interval
     )
   }
 
@@ -30,39 +30,31 @@ class Board extends Component {
     if(this.timerID){
       clearInterval(this.timerID)
     }
-      this.timerID = setInterval(this.updateBoardContent, interval)
+      this.timerID = setInterval(this.updateGridContent, interval)
   }
 
   stop = () => {
     clearInterval(this.timerID)
   }
 
-  clearBoard = () => {
+  redrawGrid = type => {
     clearInterval(this.timerID)
     this.setState({
-      boardContent: this.drawBoard('clear'),
+      gridContent: this.drawGrid(type),
       generationCount: 0
     })
   }
 
-  restart = () => {
-    clearInterval(this.timerID)
-    this.setState({
-      boardContent: this.drawBoard('random'),
-      generationCount: 0
-    })
-  }
-
-  drawBoard = board => {
+  drawGrid = type => {
     let { height, width } = this.props
     let grid = []
     for(let row = 0; row < height; row++){
       let rowContent = []
       let alive
       for(let col = 0; col < width; col++){
-        if(board === 'random'){
-          alive = Math.round(Math.random()) === 0 ? false : true
-        } else if(board === 'clear'){
+        if(type === 'random'){
+          alive = (Math.random() * 10) + 1 <= 4  ? true : false
+        } else if(type === 'clear'){
           alive = false
       }
         rowContent.push({rowId: row, colId: col, alive: alive})
@@ -72,7 +64,7 @@ class Board extends Component {
     return grid
   }
 
-  updateBoardContent = () => {
+  updateGridContent = () => {
     let nextGen = []
     let {height, width} = this.props
     for(let row = 0; row < height; row++){
@@ -83,14 +75,14 @@ class Board extends Component {
       nextGen.push(rowContent)
     }
     this.setState({
-      boardContent: nextGen,
+      gridContent: nextGen,
       generationCount: this.state.generationCount + 1
     })
   }
 
   livingNeighborCount = (rowId, colId) => {
     let {height, width} = this.props
-    let current = this.state.boardContent
+    let current = this.state.gridContent
     let livingNeighbors = 0
 
     let neighborLocations = [[rowId-1, colId-1], [rowId-1, colId], [rowId-1, colId+1],
@@ -120,7 +112,7 @@ class Board extends Component {
 
   updateCell = (row, col) =>{
     let livingNeighbors = this.livingNeighborCount(row, col)
-    let current = this.state.boardContent
+    let current = this.state.gridContent
     let alive = current[row][col].alive
 
     if(alive) {
@@ -135,65 +127,74 @@ class Board extends Component {
     return {rowId: row, colId: col, alive: alive}
   }
 
-  handleCellClick = (coords) => {
-    let boardContent = this.state.boardContent
+  cellClick = (coords) => {
+    let gridContent = this.state.gridContent
     let [row, col] = coords
-    let currentCell = boardContent[row][col]
+    let currentCell = gridContent[row][col]
 
     currentCell.alive ? currentCell.alive = false : currentCell.alive = true
 
     this.setState({
-      boardContent: boardContent
+      gridContent: gridContent
     })
   }
 
   render(){
     return(
       <div>
-        <h3>Generations: {this.state.generationCount}</h3>
+        <h2>Generations: {this.state.generationCount}</h2>
+        <Grid gridContent={this.state.gridContent}
+          handleCellClick={this.cellClick}/>
         <div className="btn-grp">
-          <Button className='btn' id="Run" handleClick={this.run} />
-          <Button className='btn' id="Stop" handleClick={this.stop}/>
-          <Button className='btn' id="Clear" handleClick={this.clearBoard} />
-          <Button className='btn' id="Random" handleClick={this.restart} />
+          <Button className='btn' id="Run" handleButtonClick={this.run} />
+          <Button className='btn' id="Stop" handleButtonClick={this.stop}/>
+          <Button className='btn' id="Clear" handleButtonClick={this.redrawGrid} />
+          <Button className='btn' id="Random" handleButtonClick={this.redrawGrid} />
         </div>
-        <Grid boardContent={this.state.boardContent}
-          onCellClick={this.handleCellClick}/>
       </div>
     )
   }
 }
 
-const Grid = (props) => {
+const Grid = props => {
   return (
     <div className='board'>
-    {props.boardContent.map((row, index)=>{
-      return <Row key={index} rowContent={row} onCellClick={props.onCellClick}/>
+    {props.gridContent.map((row, index)=>{
+      return <Row key={index} rowContent={row} handleCellClick={props.handleCellClick}/>
     })}
   </div>
 )
 }
 
-const Row = (props) => {
+const Row = props => {
   return (
     <div className="row">
       {props.rowContent.map(cell => {
         return <Cell key={cell.rowId+'-'+cell.colId} {...cell}
-          onCellClick={props.onCellClick}/>
+          handleCellClick={props.handleCellClick}/>
       })}
     </div>
   )
 }
 
-const Cell = (props) => {
+const Cell = props => {
   const _onClick = () => {
-    props.onCellClick([props.rowId, props.colId])
+    props.handleCellClick([props.rowId, props.colId])
   }
   return <div className={`square ${!props.alive ? '': 'alive'}`} onClick={_onClick}></div>
 }
 
 const Button = props => {
-  return <button className={props.className} onClick={props.handleClick}>
+  const _onClick = () => {
+    if(props.id.toLowerCase() === 'clear'){
+      props.handleButtonClick('clear')
+    } else if(props.id.toLowerCase() === 'random'){
+      props.handleButtonClick('random')
+    } else {
+      props.handleButtonClick()
+    }
+  }
+  return <button className={props.className} onClick={_onClick}>
     {props.id}
   </button>
 }
